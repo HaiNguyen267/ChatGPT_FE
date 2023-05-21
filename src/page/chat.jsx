@@ -48,7 +48,6 @@ const Main = () => {
   const chatRef = useRef();
 
   const { user } = useSelector((state) => state);
-
   const { id = null } = useParams();
 
   const [status, stateAction] = useReducer(reducer, {
@@ -129,8 +128,8 @@ const InputArea = ({ status, chatRef, stateAction }) => {
 
   const FormHandle = async () => {
     if (prompt?.length > 0) {
+      dispatch(livePrompt(''));
       stateAction({ type: "chat", status: true });
-
       let chatsId = Date.now();
 
       dispatch(insertNew({ id: chatsId, content: "", prompt }));
@@ -161,7 +160,7 @@ const InputArea = ({ status, chatRef, stateAction }) => {
       } finally {
         if (res?.data) {
           const { _id, content } = res?.data?.data;
-
+      
           dispatch(insertNew({ _id, fullContent: content, chatsId }));
 
           chatRef?.current?.loadResponse(stateAction, content, chatsId);

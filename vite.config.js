@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://chatgptbe-production.up.railway.app/api",
+        target: "http://localhost:5000/api",
+        // target: "https://chatgptbe-production.up.railway.app/api",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
