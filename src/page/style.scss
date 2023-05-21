@@ -332,7 +332,8 @@
       }
 
       .box {
-        width: 60%;
+        // max-width: 60%;
+        width: 768px;
         display: flex;
         flex-direction: row;
         justify-content: center;
