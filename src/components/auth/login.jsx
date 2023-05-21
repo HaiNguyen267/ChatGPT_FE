@@ -1,11 +1,13 @@
 import React, { useReducer, useState } from 'react'
-import { GptIcon, Google, Microsoft } from '../../assets'
+import { GptIcon, Google, Microsoft, Facebook } from '../../assets'
 import { Link, useNavigate } from 'react-router-dom'
 import FormFeild from './FormFeild'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useDispatch } from 'react-redux'
 import { insertUser } from '../../redux/user'
 import instance from '../../config/instance'
+import {auth, googleProvider, facebookProvider} from '../../config/firebaseConfig'
+import { signInWithPopup } from 'firebase/auth'
 import './style.scss'
 
 const reducer = (state, { type, status }) => {
@@ -49,6 +51,24 @@ const LoginComponent = () => {
             })
         }
     })
+
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, googleProvider).then(result => {
+            const user = result.user
+            console.log(user);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    const handleFacebookSignIn = () => {
+        signInWithPopup(auth, facebookProvider).then(result => {
+            const user = result.user
+            console.log(user);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     const formHandle = async (e, googleData) => {
         e?.preventDefault()
@@ -116,7 +136,8 @@ const LoginComponent = () => {
                             </div>
 
                             <div className="btns">
-                                <button onClick={googleAuth} ><Google /> Continue with Google</button>
+                                <button onClick={handleGoogleSignIn} ><Google /> Continue with Google</button>
+                                <button onClick={handleFacebookSignIn} ><Facebook /> Continue with Facebook</button>
                                 {/* <button><Microso ft /> Continue with Microsoft Account</button> */}
                             </div>
 

@@ -205,6 +205,11 @@ const InputArea = ({ status, chatRef, stateAction }) => {
                 placeholder="Send a message..."
                 ref={textAreaRef}
                 value={prompt}
+                onKeyDown={e => {
+                  if (e.key == 'Enter' && !e.shiftKey) {
+                    FormHandle()
+                  }
+                }}
                 onChange={(e) => {
                   dispatch(livePrompt(e.target.value));
                 }}

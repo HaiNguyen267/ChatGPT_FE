@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import {
-  Avatar, Bar, LogOut, Message, Plus, Settings, Tab, Tick, Trash, Xicon
+  Avatar, Bar, LogOut, Message, Plus, Settings, Tab, Tick, Trash, Xicon, Login
 } from '../../assets/'
 import { emptyUser } from '../../redux/user'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,6 +22,7 @@ const Menu = ({ changeColorMode }) => {
   const { history } = useSelector((state) => state)
   const [confirm, setConfim] = useState(false)
 
+
   const logOut = async () => {
     if (window.confirm("Do you want log out")) {
       let res = null
@@ -39,6 +40,9 @@ const Menu = ({ changeColorMode }) => {
     }
   }
 
+  const login = async () => {
+    navigate('/login')
+  }
   const clearHistory = async (del) => {
     if (del) {
       let res = null
@@ -209,9 +213,14 @@ const Menu = ({ changeColorMode }) => {
           {/* <button onClick={() => {
             window.open('https://help.openai.com/en/collections/3742473-chatgpt', '_blank')
           }}><Tab />Get help</button> */}
-          <button onClick={logOut} >
-            <LogOut />Log out
+
+          <button onClick={login}>
+            <Login />Log in
           </button>
+
+          {/* <button onClick={logOut} >
+            <LogOut />Log out
+          </button> */}
         </div>
       </div >
 

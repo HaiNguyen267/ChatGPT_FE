@@ -14,7 +14,6 @@ const App = () => {
   const changeColorMode = (to) => {
     if (to) {
       localStorage.setItem("darkMode", true);
-
       document.body.className = "dark";
     } else {
       localStorage.removeItem("darkMode");
@@ -45,9 +44,15 @@ const App = () => {
     });
   });
 
+  const showMenu = () => {
+    const notShowMenuURL = ['/login', '/signup', '/forgot']
+
+    return !notShowMenuURL.some(endpoint => window.location.pathname.startsWith(endpoint))
+  }
+
   return (
     <section className={user ? "main-grid" : null}>
-      {user && (
+      {user && showMenu() && (
         <div>
           <Menu changeColorMode={changeColorMode} />
         </div>
@@ -63,20 +68,28 @@ const App = () => {
       )}
 
       <Routes>
+
         <Route element={<ProtectedRoute offline={offline} authed={true} />}>
           <Route exact path="/" element={<Main />} />
           <Route path="/chat" element={<Main />} />
           <Route path="/chat/:id" element={<Main />} />
         </Route>
 
-        <Route element={<ProtectedRoute offline={offline} />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/auth" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup/pending/:id" element={<Signup />} />
+        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/forgot/set/:userId/:secret" element={<Forgot />} />
+        
+        {/* <Route element={<ProtectedRoute offline={offline} />}>
+
           <Route path="/login" element={<Login />} />
           <Route path="/login/auth" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signup/pending/:id" element={<Signup />} />
           <Route path="/forgot" element={<Forgot />} />
-          <Route path="/forgot/set/:userId/:secret" element={<Forgot />} />
-        </Route>
+        </Route> */}
         <Route
           path="*"
           element={

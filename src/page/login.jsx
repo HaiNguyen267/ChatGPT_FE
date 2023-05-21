@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    // if (!user) {
       if (location?.pathname === "/login/auth") {
         setAuth(true);
         setTimeout(() => {
@@ -30,7 +30,7 @@ const Login = () => {
           dispatch(setLoading(false));
         }, 1000);
       }
-    }
+    // }
   }, [location]);
 
   return (
